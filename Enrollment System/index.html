@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Class Enrollment System</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"> </head>
+
+<body ng-app="myApp">
+<div ng-controller="indexCtrl">
+    <nav class="navbar navbar-default ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">Class Enrollment System</a> </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="enrollment.html">Enrollment</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <header id="head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home <small>| View your class schedule</small></h1> </div>
+                <div class="col-md-2"> </div>
+            </div>
+        </div>
+    </header>
+    <!--
+    <section id="breadCrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a class="active">Home</a></li>
+            </ol>
+        </div>
+    </section>
+-->
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group"> <a href="index.html" class="list-group-item active main-color"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+  </a> <a href="browse.html" class="list-group-item"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Browse</a> <a href="enrollment.html" class="list-group-item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enrollment</a> </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading main-color">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Term</h3> </div>
+                        <div class="panel-body">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{ semFut }} <span class="caret"></span> </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a ng-click="changeSem()"> {{ semNow }}</a></li>
+                                    <li><a ng-click="changeSem2()"> {{ semPrev }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading main-color">
+                            <h3 class="panel-title">Class Enrollment</h3> </div>
+                        <div class="panel-body">
+                            <div class='tab'>
+                                <table border='0' cellpadding='0' cellspacing='0'>
+                                    <tr class='days'>
+                                        <th style="text-align: center;">Class</th>
+                                        <th></th>
+                                        <th style="text-align: center;">Monday</th>
+                                        <th style="text-align: center;">Tuesday</th>
+                                        <th style="text-align: center;">Wednesday</th>
+                                        <th style="text-align: center;">Thursday</th>
+                                        <th style="text-align: center;">Friday</th>
+                                    </tr>
+                                    <tr>
+ 
+                                                                                <td class={{classList[0].color}} data-tooltip={{classList[0].dtooltip}}>{{classList[0].ClassID}}
+                                            <br>{{classList[0].ClassLoc}}</td>
+                                        <td class='time'>8:00 AM</td>
+                                        <td class={{am8ClassList[0].color}} data-tooltip={{am8ClassList[0].dtooltip}}>{{am8ClassList[0].ClassID}}
+                                            <br>{{am8ClassList[0].ClassLoc}}</td>
+                                        <td class={{am8ClassList[1].color}} data-tooltip={{am8ClassList[1].dtooltip}}>{{am8ClassList[1].ClassID}}
+                                            <br>{{am8ClassList[1].ClassLoc}}</td>
+                                        <td class={{am8ClassList[2].color}} data-tooltip={{am8ClassList[2].dtooltip}}>{{am8ClassList[2].ClassID}}
+                                            <br>{{am8ClassList[2].ClassLoc}}</td>
+                                        <td class={{am8ClassList[3].color}} data-tooltip={{am8ClassList[3].dtooltip}}>{{am8ClassList[3].ClassID}}
+                                            <br>{{am8ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{am8ClassList[4].color}} data-tooltip={{am8ClassList[4].dtooltip}}>{{am8ClassList[4].ClassID}}
+                                            <br>{{am8ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class={{classList[1].color}} data-tooltip={{classList[1].dtooltip}}>{{classList[1].ClassID}}
+                                            <br>{{classList[1].ClassLoc}}</td>
+                                        <td class='time'>9:00 AM</td>
+                                        <td class={{am9ClassList[0].color}} data-tooltip={{am9ClassList[0].dtooltip}}>{{am9ClassList[0].ClassID}}
+                                            <br>{{am9ClassList[0].ClassLoc}}</td>
+                                        <td class={{am9ClassList[1].color}} data-tooltip={{am9ClassList[1].dtooltip}}>{{am9ClassList[1].ClassID}}
+                                            <br>{{am9ClassList[1].ClassLoc}}</td>
+                                        <td class={{am9ClassList[2].color}} data-tooltip={{am9ClassList[2].dtooltip}}>{{am9ClassList[2].ClassID}}
+                                            <br>{{am9ClassList[2].ClassLoc}}</td>
+                                        <td class={{am9ClassList[3].color}} data-tooltip={{am9ClassList[3].dtooltip}}>{{am9ClassList[3].ClassID}}
+                                            <br>{{am9ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{am9ClassList[4].color}} data-tooltip={{am9ClassList[4].dtooltip}}>{{am9ClassList[4].ClassID}}
+                                            <br>{{am9ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class={{classList[2].color}} data-tooltip={{classList[2].dtooltip}}>{{classList[2].ClassID}}
+                                            <br>{{classList[2].ClassLoc}}</td>
+                                        <td class='time'>10:00 AM</td>
+                                        <td class={{am10ClassList[0].color}} data-tooltip={{am10ClassList[0].dtooltip}}>{{am10ClassList[0].ClassID}}
+                                            <br>{{am10ClassList[0].ClassLoc}}</td>
+                                        <td class={{am10ClassList[1].color}} data-tooltip={{am10ClassList[1].dtooltip}}>{{am10ClassList[1].ClassID}}
+                                            <br>{{am10ClassList[1].ClassLoc}}</td>
+                                        <td class={{am10ClassList[2].color}} data-tooltip={{am10ClassList[2].dtooltip}}>{{am10ClassList[2].ClassID}}
+                                            <br>{{am10ClassList[2].ClassLoc}}</td>
+                                        <td class={{am10ClassList[3].color}} data-tooltip={{am10ClassList[3].dtooltip}}>{{am10ClassList[3].ClassID}}
+                                            <br>{{am10ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{am10ClassList[4].color}} data-tooltip={{am10ClassList[4].dtooltip}}>{{am10ClassList[4].ClassID}}
+                                            <br>{{am10ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class={{classList[3].color}} data-tooltip={{classList[3].dtooltip}}>{{classList[3].ClassID}}
+                                            <br>{{classList[3].ClassLoc}}</td>
+                                        <td class='time'>11:00 AM</td>
+                                        <td class={{am11ClassList[0].color}} data-tooltip={{am11ClassList[0].dtooltip}}>{{am11ClassList[0].ClassID}}
+                                            <br>{{am11ClassList[0].ClassLoc}}</td>
+                                        <td class={{am11ClassList[1].color}} data-tooltip={{am11ClassList[1].dtooltip}}>{{am11ClassList[1].ClassID}}
+                                            <br>{{am11ClassList[1].ClassLoc}}</td>
+                                        <td class={{am11ClassList[2].color}} data-tooltip={{am11ClassList[2].dtooltip}}>{{am11ClassList[2].ClassID}}
+                                            <br>{{am11ClassList[2].ClassLoc}}</td>
+                                        <td class={{am11ClassList[3].color}} data-tooltip={{am11ClassList[3].dtooltip}}>{{am11ClassList[3].ClassID}}
+                                            <br>{{am11ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{am11ClassList[4].color}} data-tooltip={{am11ClassList[4].dtooltip}}>{{am11ClassList[4].ClassID}}
+                                            <br>{{am11ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class={{classList[4].color}} data-tooltip={{classList[4].dtooltip}}>{{classList[4].ClassID}}
+                                            <br>{{classList[4].ClassLoc}}</td>
+                                        <td class='time'>12:00 PM</td>
+                                        <td class={{pm12ClassList[0].color}} data-tooltip={{pm12ClassList[0].dtooltip}}>{{pm12ClassList[0].ClassID}}
+                                            <br>{{pm12ClassList[0].ClassLoc}}</td>
+                                        <td class={{pm12ClassList[1].color}} data-tooltip={{pm12ClassList[1].dtooltip}}>{{pm12ClassList[1].ClassID}}
+                                            <br>{{pm12ClassList[1].ClassLoc}}</td>
+                                        <td class={{pm12ClassList[2].color}} data-tooltip={{pm12ClassList[2].dtooltip}}>{{pm12ClassList[2].ClassID}}
+                                            <br>{{pm12ClassList[2].ClassLoc}}</td>
+                                        <td class={{pm12ClassList[3].color}} data-tooltip={{pm12ClassList[3].dtooltip}}>{{pm12ClassList[3].ClassID}}
+                                            <br>{{pm12ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{pm12ClassList[4].color}} data-tooltip={{pm12ClassList[4].dtooltip}}>{{pm12ClassList[4].ClassID}}
+                                            <br>{{pm12ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class={{classList[5].color}} data-tooltip={{classList[5].dtooltip}}>{{classList[5].ClassID}}
+                                            <br>{{classList[5].ClassLoc}}</td>
+                                        <td class='time'>1:00 PM</td>
+                                        <td class={{pm1ClassList[0].color}} data-tooltip={{pm1ClassList[0].dtooltip}}>{{pm1ClassList[0].ClassID}}
+                                            <br>{{pm1ClassList[0].ClassLoc}}</td>
+                                        <td class={{pm1ClassList[1].color}} data-tooltip={{pm1ClassList[1].dtooltip}}>{{pm1ClassList[1].ClassID}}
+                                            <br>{{pm1ClassList[1].ClassLoc}}</td>
+                                        <td class={{pm1ClassList[2].color}} data-tooltip={{pm1ClassList[2].dtooltip}}>{{pm1ClassList[2].ClassID}}
+                                            <br>{{pm1ClassList[2].ClassLoc}}</td>
+                                        <td class={{pm1ClassList[3].color}} data-tooltip={{pm1ClassList[3].dtooltip}}>{{pm1ClassList[3].ClassID}}
+                                            <br>{{pm1ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{pm1ClassList[4].color}} data-tooltip={{pm1ClassList[4].dtooltip}}>{{pm1ClassList[4].ClassID}}
+                                            <br>{{pm1ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class='time'>2:00 PM</td>
+                                        <td class={{pm2ClassList[0].color}} data-tooltip={{pm2ClassList[0].dtooltip}}>{{pm2ClassList[0].ClassID}}
+                                            <br>{{pm2ClassList[0].ClassLoc}}</td>
+                                        <td class={{pm2ClassList[1].color}} data-tooltip={{pm2ClassList[1].dtooltip}}>{{pm2ClassList[1].ClassID}}
+                                            <br>{{pm2ClassList[1].ClassLoc}}</td>
+                                        <td class={{pm2ClassList[2].color}} data-tooltip={{pm2ClassList[2].dtooltip}}>{{pm2ClassList[2].ClassID}}
+                                            <br>{{pm2ClassList[2].ClassLoc}}</td>
+                                        <td class={{pm2ClassList[3].color}} data-tooltip={{pm2ClassList[3].dtooltip}}>{{pm2ClassList[3].ClassID}}
+                                            <br>{{pm2ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{pm2ClassList[4].color}} data-tooltip={{pm2ClassList[4].dtooltip}}>{{pm2ClassList[4].ClassID}}
+                                            <br>{{pm2ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class='time'>3:00 PM</td>
+                                        <td class={{pm3ClassList[0].color}} data-tooltip={{pm3ClassList[0].dtooltip}}>{{pm3ClassList[0].ClassID}}
+                                            <br>{{pm3ClassList[0].ClassLoc}}</td>
+                                        <td class={{pm3ClassList[1].color}} data-tooltip={{pm3ClassList[1].dtooltip}}>{{pm3ClassList[1].ClassID}}
+                                            <br>{{pm3ClassList[1].ClassLoc}}</td>
+                                        <td class={{pm3ClassList[2].color}} data-tooltip={{pm3ClassList[2].dtooltip}}>{{pm3ClassList[2].ClassID}}
+                                            <br>{{pm3ClassList[2].ClassLoc}}</td>
+                                        <td class={{pm3ClassList[3].color}} data-tooltip={{pm3ClassList[3].dtooltip}}>{{pm3ClassList[3].ClassID}}
+                                            <br>{{pm3ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{pm3ClassList[4].color}} data-tooltip={{pm3ClassList[4].dtooltip}}>{{pm3ClassList[4].ClassID}}
+                                            <br>{{pm3ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class='time'>4:00 PM</td>
+                                        <td class={{pm4ClassList[0].color}} data-tooltip={{pm4ClassList[0].dtooltip}}>{{pm4ClassList[0].ClassID}}
+                                            <br>{{pm4ClassList[0].ClassLoc}}</td>
+                                        <td class={{pm4ClassList[1].color}} data-tooltip={{pm4ClassList[1].dtooltip}}>{{pm4ClassList[1].ClassID}}
+                                            <br>{{pm4ClassList[1].ClassLoc}}</td>
+                                        <td class={{pm4ClassList[2].color}} data-tooltip={{pm4ClassList[2].dtooltip}}>{{pm4ClassList[2].ClassID}}
+                                            <br>{{pm4ClassList[2].ClassLoc}}</td>
+                                        <td class={{pm4ClassList[3].color}} data-tooltip={{pm4ClassList[3].dtooltip}}>{{pm4ClassList[3].ClassID}}
+                                            <br>{{pm4ClassList[3].ClassLoc}}
+                                        </td>
+                                        <td class={{pm4ClassList[4].color}} data-tooltip={{pm4ClassList[4].dtooltip}}>{{pm4ClassList[4].ClassID}}
+                                            <br>{{pm4ClassList[4].ClassLoc}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    <footer id="foot">
+        <p>Copyright &copy; Team 1</p>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<script src="angclass.js">
+</script>
+</body>
+
+</html>
