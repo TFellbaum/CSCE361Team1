@@ -1,29 +1,33 @@
 <? 
-/*
-$link = mysql_connect('cse.unl.edu:3306', 'tfellbaum', 'AW3SOM3NESs');
-if (!$link) {
-    die('Could not connect: ' . mysql_error());
-}
-echo 'Connected successfully';
+
+
+$servername = "cse.unl.edu:3306/tfellbaum";
+$username = "tfellbaum";
+$password = "8H]qJf";
 $dbname = "tfellbaum";
-mysql_select_db($dbname) or die("Could not open the db '$dbname'");
-$test_query = "SHOW TABLES FROM $dbname";
-$result = mysql_query($test_query);
-$tblCnt = 0;
-while($tbl = mysql_fetch_array($result)) {
-  $tblCnt++;
-  #echo $tbl[0]."<br />\n";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("{\"first\":{\"response\": \"error\"}}");
+} 
+$varun = str_rot13($_POST['un']);
+$varup = str_rot13($_POST['up']);
+$sql = "SELECT UserID,FirstName,LastName,MajorID,SemesterStart FROM Student WHERE Username='$varun' AND Password='$varup'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+ $rows = array();
+while($r = mysqli_fetch_assoc($result)) {
+    $rows[] = $r;
 }
-if (!$tblCnt) {
-  echo "There are no tables<br />\n";
+print json_encode($rows);
 } else {
-  echo "There are $tblCnt tables<br />\n";
+    echo "{\"first\":{\"response\": \"error\"}}";
 }
-mysql_close($link);
-*/
-if($_POST['un'] == 'ad' && $_POST['up'] == 'ad')
-echo "verified";
-else
-	echo "error";
+$conn->close();
+
+
+
 
 ?>

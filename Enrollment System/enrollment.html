@@ -10,7 +10,15 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet"> </head>
 
-<body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="angclass.js">
+</script>
+
+<body ng-app="myApp">
+<div ng-controller="enrollmentCtrl">
     <nav class="navbar navbar-default ">
         <div class="container">
             <div class="navbar-header">
@@ -22,7 +30,7 @@
                     <li class="active"><a href="enrollment.html">Enrollment</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a ng-click="logMeOut()">Logout</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -52,19 +60,6 @@
                 <div class="col-md-3">
                     <div class="list-group"> <a href="index.html" class="list-group-item "><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
   </a> <a href="browse.html" class="list-group-item"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Browse</a> <a href="enrollment.html" class="list-group-item active main-color"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enrollment</a> </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading main-color">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Term</h3> </div>
-                        <div class="panel-body">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Summer 2017 <span class="caret"></span> </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Spring 2017</a></li>
-                                    <li><a href="#">Fall 2016</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-9">
                     <div class="panel panel-default">
@@ -74,71 +69,33 @@
                             <div class='tab'>
                                 <table border='0' cellpadding='0' cellspacing='0'>
                                     <tr class='days'>
-                                        <th style="text-align: center; width: 20%;">Professor</th>
+                                        <th style="text-align: center; width: 20%;">ClassID</th>
+                                        <th style="text-align: center; width: 21%;">Professor</th>
                                         <th style="text-align: center; width: 21%;">Section</th>
                                         <th style="text-align: center; width: 21%;">Time</th>
                                         <th style="text-align: center; width: 21%;">Credits</th>
                                         <th style="text-align: center; width: 21%;">Location</th>
                                         <th style="text-align: center; width: 21%;">Remove?</th>
                                     </tr>
-                                    <tr>
-                                        <td style='color: black;' class='classSelected' data-tooltip='Class Capacity: 0/30'>HASAN</td>
-                                        <td style='color: black;'>123</td>
-                                        <td style='color: black;'>MWF
-                                            <br>8:30AM - 9:30AM</td>
-                                        <td style='color: black;'>4</td>
-                                        <td style='color: black;'>CSCE 361
-                                            <br>Avery Hall(AVH) 119</td>
-                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target="#RemoveModal" data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
+                                    <tr ng-repeat="x in cartObjects track by $index">
+                                        <td style='color: black;' class='classSelected' data-tooltip={{x['SeatsTaken']}}/{{x['ClassCapacity']}}>{{x['ClassID']}}</td>
+                                        <td style='color: black;'>{{x['ClassInstructor']}}</td>
+                                        <td style='color: black;'>{{x['SectionID']}}</td>
+                                        <td style='color: black;'>{{x['ClassTime']}}</td>
+                                        <td style='color: black;'>{{x['Credits']}}</td>
+                                        <td style='color: black;'>{{x['ClassLocation']}}</td>
+                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target={{x['ModalName']}} data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
                                     </tr>
                                     <tr>
-                                        <td style='color: black;' class='classSelected' data-tooltip='Class Capacity: 4/30'>HASAN</td>
-                                        <td style='color: black;'>123</td>
-                                        <td style='color: black;'>MWF
-                                            <br>8:30AM - 9:30AM</td>
-                                        <td style='color: black;'>4</td>
-                                        <td style='color: black;'>CSCE 361
-                                            <br>Avery Hall(AVH) 119</td>
-                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target="#RemoveModal" data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style='color: black;' class='classSelected' data-tooltip='Class Capacity: 10/30'>HASAN</td>
-                                        <td style='color: black;'>123</td>
-                                        <td style='color: black;'>MWF
-                                            <br>8:30AM - 9:30AM</td>
-                                        <td style='color: black;'>4</td>
-                                        <td style='color: black;'>CSCE 361
-                                            <br>Avery Hall(AVH) 119</td>
-                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target="#RemoveModal" data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style='color: black;' class='classSelected' data-tooltip='Class Capacity: 20/30'>HASAN</td>
-                                        <td style='color: black;'>123</td>
-                                        <td style='color: black;'>MWF
-                                            <br>8:30AM - 9:30AM</td>
-                                        <td style='color: black;'>4</td>
-                                        <td style='color: black;'>CSCE 361
-                                            <br>Avery Hall(AVH) 119</td>
-                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target="#RemoveModal" data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style='color: black;' class='classSelected' data-tooltip='Class Capacity: 14/30'>HASAN</td>
-                                        <td style='color: black;'>123</td>
-                                        <td style='color: black;'>MWF
-                                            <br>8:30AM - 9:30AM</td>
-                                        <td style='color: black;'>4</td>
-                                        <td style='color: black;'>CSCE 361
-                                            <br>Avery Hall(AVH) 119</td>
-                                        <td style='color: #d00000;' class='classDeselected' data-toggle="modal" data-target="#RemoveModal" data-class=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></td>
-                                    </tr>
-                                    <tr>
+                                        <td></td>
                                         <td style='color: black;' class='classSelected'></td>
                                         <td style='color: black;'></td>
                                         <td style='color: black;'>Total Hours:</td>
-                                        <td style='color: black;'>20</td>
+                                        <td style='color: black;'>{{totalHours}}</td>
                                         <td style='color: black;'>
-                                            <button class="btn-main-style btn-enroll" style="width:90%; text-align: center; height: 40px;">Enroll</button>
+                                            <button class="btn-main-style btn-enroll" style="width:90%; text-align: center; height: 40px;" ng-click="enrollUserIntoTheseClasses()">Enroll</button>
                                         </td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </div>
@@ -146,8 +103,8 @@
                     </div>
                     
                     
-                     
-                            <div class="modal fade" id="RemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div ng-repeat="x in cartObjects track by $index">
+                            <div class="modal fade" id={{x['Modal']}} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -155,31 +112,28 @@
                                                         <h4 class="modal-title" id="exampleModalLabel">Remove class?</h4> </div>
                                                     <div class="modal-body">
                                                         <form>
-                                                            <h5 style="text-align: center;">Do you really want to remove this class?</h5>
+                                                            <h5 style="text-align: center;">Do you really want to remove {{x['ClassID']}} with {{x['ClassInstructor']}}?</h5>
                                                             
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer" style="text-align: center;">
-                                                        <button id="removeSelected" type="button" class="btn-main-style" style="width: 150px;">Yes, Remove Class</button>
-                                                        <button id="keepSelected" type="button" class="btn-main-style" style="width: 150px;">No, Keep Class</button>
+                                                        <button id="removeSelected" type="button" class="btn-main-style" style="width: 150px;" ng-click="removeThisClass($index)">Yes, Remove Class</button>
+                                                        <button id="keepSelected" type="button" class="btn-main-style" style="width: 150px;" data-dismiss="modal">No, Keep Class</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                    
+                    </div>
                     
                 </div>
             </div>
         </div>
     </section>
-    <footer id="foot">
+    </div>
+    <footer style="margin-top: 250px;" id="foot">
         <p>Copyright &copy; Team 1</p>
     </footer>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

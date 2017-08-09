@@ -9,8 +9,14 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet"> </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
-<body>
+<script src="angclass.js">
+</script>
+<body ng-app="myApp">
+<div ng-controller="browseCtrl">
     <nav class="navbar navbar-default ">
         <div class="container">
             <div class="navbar-header">
@@ -22,7 +28,7 @@
                     <li><a href="enrollment.html">Enrollment</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a ng-click="logMeOut()">Logout</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -52,18 +58,6 @@
                 <div class="col-md-3">
                     <div class="list-group"> <a href="index.html" class="list-group-item"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
   </a> <a href="browse.html" class="list-group-item active main-color"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Browse</a> <a href="enrollment.html" class="list-group-item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enrollment</a> </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading main-color">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Term</h3> </div>
-                        <div class="panel-body">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Fall 2017 <span class="caret"></span> </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Summer 2017</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-9">
                     <div class="panel panel-default">
@@ -74,69 +68,26 @@
                                 <div class="">
                                     <form class="navbar-form navbar-right float-right">
                                         <div class="form-group searchBar">
-                                            <input type="text" class="form-control" placeholder="Search"> </div>
-                                        <button type="submit" class="btn btn-default searchButton" style="background-color: #c43939; color: white;">Submit</button>
+                                            <input type="text" class="form-control" ng-model="searchTerm" placeholder="Search"> </div>
+                                        <button type="submit" class="btn btn-default searchButton" ng-click="findClasses()"style="background-color: #c43939; color: white;">Submit</button>
                                     </form>
                                     <form class="navbar-form navbar-left">
-                                        <button type="button" class="btn btn-default filter-button" data-toggle="modal" data-target="#FilterModal" data-class="">Choose New Filter(s)</button>
+                                        <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{ shownReq }} <span class="caret"></span> </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li ng-repeat="x in reqs track by $index"><a ng-click="changeReq($index)">{{x['Requirement']}}</a></li> 
+                                </ul>
+                            </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            <button type="button" class="btn-main-style" data-toggle="modal" data-target="#ClassModal" data-class="CSCE 361">CSCE 361: Software Engineering</button>
-                            
-                            <div class="modal fade" id="FilterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="exampleModalLabel">Apply the following filters:</h4> </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value=""> ACE 1</label>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer" style="text-align: center;">
-                                                        <button id="filtersSelected" type="button" class="btn-main-style" style="width: 150px;">Apply Filters</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                            
-                            <div class="modal fade" id="ClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                            <button ng-repeat="x in classesForReqs track by $index" type="button" class="btn-main-style" data-toggle="modal" data-target={{x['modalNameTarget']}}>{{x['ClassID']}} {{x['CourseTitle']}}</button>
+
+
+                            <div ng-repeat="x in classesForReqs track by $index">
+                            <div class="modal fade" id={{x['modalName']}} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -147,136 +98,55 @@
                                                 <form>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="control-label">Course Title:</label>
-                                                        <p>Software Engineering</p>
+                                                        <p>{{x['CourseTitle']}}</p>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="control-label">Prerequisites:</label>
-                                                        <p>CSCE 310 or CSCE 311</p>
+                                                        <p>{{x['PreReqIDs']}}</p>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="control-label">Credit Hours:</label>
-                                                        <p>3</p>
+                                                        <p>{{x['Credits']}}</p>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="control-label">Course Delivery:</label>
-                                                        <p>Lecture, Classroom</p>
+                                                        <p>{{x['CourseDelivery']}}</p>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="control-label">Description:</label>
-                                                        <p>Techniques used in the disciplined development of large software projects. Software requirements analysis and specifications, program design, coding and integration testing, and software maintenance. Software estimation techniques, design tools, and complexity metrics</p>
+                                                        <p>{{x['CourseDescription']}}</p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">This course is a prequisite for:</label>
-                                                        <p>CSCE 461, CSCE 486, CSCE 488, CSCE 962, SOFT 466, SOFT 467, SOFT 468</p>
+                                                        <label for="recipient-name" class="control-label" style="width: 100%; text-align: center;">Interested in this course? Click on the instructor's name to add it to your cart!</label>
                                                     </div>
-                                                </form>
-                                                <label for="recipient-name" class="control-label" style="width: 100%; text-align: center;">Interested in this course?</label>
-                                            </div>
-                                            <div class="modal-footer" style="text-align: center;">
-                                                <button id="professorSort" type="button" class="btn-main-style" style="width: 150px;">Filter by Professor</button>
-                                                <button id="timeSort" type="button" class="btn-main-style" style="width: 150px;">Filter by Time</button>
-                                            </div>
-                                        </div>
-                                        <div id="screen2A" style="display:none;">
-                                            <div class="modal-body">
-                                                <p style="text-align:center;">Click the professor you want to add to your cart</p>
-                                                <table border='0' cellpadding='0' cellspacing='0'>
-                                                    <tr class='days'>
-                                                        <th>Professor</th>
-                                                        <th>Section</th>
-                                                        <th>Time</th>
-                                                        <th>Credits</th>
-                                                        <th>Location</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style='color: black;' id='classSelected-1' data-tooltip='Class Capacity: 0/30'>HASAN</td>
-                                                        <td style='color: black;'>123</td>
-                                                        <td style='color: black;'>MWF
-                                                            <br>8:30AM - 9:30AM</td>
-                                                        <td style='color: black;'>4</td>
-                                                        <td style='color: black;'>CSCE 361
-                                                            <br>Avery Hall(AVH) 119</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style='color: black;' id='classSelected-2' data-tooltip='Class Capacity: 4/30'>HASAN</td>
-                                                        <td style='color: black;'>123</td>
-                                                        <td style='color: black;'>MWF
-                                                            <br>8:30AM - 9:30AM</td>
-                                                        <td style='color: black;'>4</td>
-                                                        <td style='color: black;'>CSCE 361
-                                                            <br>Avery Hall(AVH) 119</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style='color: black;' id='classSelected-3' data-tooltip='Class Capacity: 10/30'>HASAN</td>
-                                                        <td style='color: black;'>123</td>
-                                                        <td style='color: black;'>MWF
-                                                            <br>8:30AM - 9:30AM</td>
-                                                        <td style='color: black;'>4</td>
-                                                        <td style='color: black;'>CSCE 361
-                                                            <br>Avery Hall(AVH) 119</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div id="screen2B" style="display:none;">
-                                            <div class="modal-body">
-                                                <form>
+                                                    <div class="form-group" style="text-align: center;">
+                                                        <button ng-click="sortThisBy(0,$index)" id="professorSort" type="button" class="btn-main-style" style="width: 150px;">Filter by Professor</button>
+                                                        <button ng-click="sortThisBy(1,$index)" id="timeSort" type="button" class="btn-main-style" style="width: 150px;">Filter by Time</button>
+                                                    </div>
                                                     <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Choose preffered class time(s):</label>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value=""> 9:30AM - 10:20AM</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value=""> 9:30AM - 10:20AM</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value=""> 9:30AM - 10:20AM</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value=""> 9:30AM - 10:20AM</label>
-                                                        </div>
+                                                        <table border='0' cellpadding='0' cellspacing='0'>
+                                                            <tr  style="color:white; background-color:#d00000;">
+                                                                <td>Professor</td>
+                                                                <td>Section</td>
+                                                                <td >Time</td>
+                                                                <td >Credits</td>
+                                                                <td >Location</td>
+                                                            </tr>
+                                                            <tr style="color:black;" ng-repeat="y in x['ClassOfferings'] track by $index">
+                                                                <td data-tooltip={{y['SeatsTaken']}}:{{y['ClassCapacity']}}><a ng-click="pleaseJosh($index,x['ClassOfferings'],x)">{{y['ClassInstructor']}}</a></td>
+                                                                <td>{{y['SectionID']}}</td>
+                                                                <td>{{y['ClassTime']}}</td>
+                                                                <td>{{x['Credits']}}</td>
+                                                                <td>{{y['ClassLocation']}}</td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                </form>
+                                                </form>                  
                                             </div>
-                                            <div class="modal-footer" style="text-align: center;">
-                                                <button id='timeSelected' type="button" class="btn-main-style" style="width: 200px;">Show Available Courses</button>
-                                            </div>
-                                        </div>
-                                        <div id="screen3" style="display:none;">
-                                            <div class="modal-body">
-                                                <h3 style="text-align:center;">Your class was successfully added to your cart!</h3>
-                                                <h4 style="text-align:center;"><a href="enrollment.html" style="text-decoration:none; color: black;">Click here to enroll in classes.</a></h4> </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="SEModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="exampleModalLabel">New message</h4> </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="recipient-name" class="control-label">Recipient:</label>
-                                                    <input type="text" class="form-control" id="recipient-name"> </div>
-                                                <div class="form-group">
-                                                    <label for="message-text" class="control-label">Message:</label>
-                                                    <textarea class="form-control" id="message-text"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Send message</button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -284,59 +154,9 @@
             </div>
         </div>
     </section>
-    <footer id="foot">
+    </div>
+    <footer style="margin-top: 200px;" id="foot">
         <p>Copyright &copy; Team 1</p>
     </footer>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script>
-        $(window).on('load', function () {
-            $('#FilterModal').modal('show');
-        });
-        $('#ClassModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var course = button.data('class') // Extract info from data-* attributes
-            var modal = $(this)
-            modal.find('.modal-title').text(course)
-            modal.find('.modal-body input').val(course)
-        });
-        $('#ClassModal').on('hidden.bs.modal', function () {
-            $('#Screen1').show().siblings('div').hide();
-        });
-        $('#professorSort').on('click', function () {
-            if ($('#Screen1').css('display') != 'none') {
-                $('#screen2A').show(500).siblings('div').hide(500);
-            }
-        });
-        $('#timeSort').on('click', function () {
-            if ($('#Screen1').css('display') != 'none') {
-                $('#screen2B').show(500).siblings('div').hide(500);
-            }
-        });
-        $('#classSelected-1').on('click', function () {
-            if ($('#screen2A').css('display') != 'none') {
-                $('#screen3').show(500).siblings('div').hide(500);
-            }
-        });
-        $('#classSelected-2').on('click', function () {
-            if ($('#screen2A').css('display') != 'none') {
-                $('#screen3').show(500).siblings('div').hide(500);
-            }
-        });
-        $('#classSelected-3').on('click', function () {
-            if ($('#screen2A').css('display') != 'none') {
-                $('#screen3').show(500).siblings('div').hide(500);
-            }
-        });
-        $('#timeSelected').on('click', function () {
-            if ($('#screen2B').css('display') != 'none') {
-                $('#screen2A').show(500).siblings('div').hide(500);
-            }
-        });
-    </script>
 </body>
-
 </html>

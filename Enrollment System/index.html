@@ -9,7 +9,12 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet"> </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
+<script src="angclass.js">
+</script>
 <body ng-app="myApp">
 <div ng-controller="indexCtrl">
     <nav class="navbar navbar-default ">
@@ -23,7 +28,7 @@
                     <li><a href="enrollment.html">Enrollment</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a ng-click="logMeOut()">Logout</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -58,10 +63,9 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Term</h3> </div>
                         <div class="panel-body">
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{ semFut }} <span class="caret"></span> </button>
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{ shownTerm }} <span class="caret"></span> </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a ng-click="changeSem()"> {{ semNow }}</a></li>
-                                    <li><a ng-click="changeSem2()"> {{ semPrev }}</a></li>
+                                    <li ng-repeat="x in terms track by $index"><a ng-click="changeSem($index)">{{x}}</a></li> 
                                 </ul>
                             </div>
                         </div>
@@ -75,6 +79,7 @@
                             <div class='tab'>
                                 <table border='0' cellpadding='0' cellspacing='0'>
                                     <tr class='days'>
+
                                         <th style="text-align: center;">Class</th>
                                         <th></th>
                                         <th style="text-align: center;">Monday</th>
@@ -84,146 +89,58 @@
                                         <th style="text-align: center;">Friday</th>
                                     </tr>
                                     <tr>
- 
-                                                                                <td class={{classList[0].color}} data-tooltip={{classList[0].dtooltip}}>{{classList[0].ClassID}}
+                                        <td class={{classList[0].color}} data-tooltip={{classList[0].tooltip}}>{{classList[0].ClassID}} {{classList[0].grade}}
                                             <br>{{classList[0].ClassLoc}}</td>
                                         <td class='time'>8:00 AM</td>
-                                        <td class={{am8ClassList[0].color}} data-tooltip={{am8ClassList[0].dtooltip}}>{{am8ClassList[0].ClassID}}
-                                            <br>{{am8ClassList[0].ClassLoc}}</td>
-                                        <td class={{am8ClassList[1].color}} data-tooltip={{am8ClassList[1].dtooltip}}>{{am8ClassList[1].ClassID}}
-                                            <br>{{am8ClassList[1].ClassLoc}}</td>
-                                        <td class={{am8ClassList[2].color}} data-tooltip={{am8ClassList[2].dtooltip}}>{{am8ClassList[2].ClassID}}
-                                            <br>{{am8ClassList[2].ClassLoc}}</td>
-                                        <td class={{am8ClassList[3].color}} data-tooltip={{am8ClassList[3].dtooltip}}>{{am8ClassList[3].ClassID}}
-                                            <br>{{am8ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{am8ClassList[4].color}} data-tooltip={{am8ClassList[4].dtooltip}}>{{am8ClassList[4].ClassID}}
-                                            <br>{{am8ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in am8ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td class={{classList[1].color}} data-tooltip={{classList[1].dtooltip}}>{{classList[1].ClassID}}
+                                        <td class={{classList[1].color}} data-tooltip={{classList[1].tooltip}}>{{classList[1].ClassID}} {{classList[1].grade}}
                                             <br>{{classList[1].ClassLoc}}</td>
                                         <td class='time'>9:00 AM</td>
-                                        <td class={{am9ClassList[0].color}} data-tooltip={{am9ClassList[0].dtooltip}}>{{am9ClassList[0].ClassID}}
-                                            <br>{{am9ClassList[0].ClassLoc}}</td>
-                                        <td class={{am9ClassList[1].color}} data-tooltip={{am9ClassList[1].dtooltip}}>{{am9ClassList[1].ClassID}}
-                                            <br>{{am9ClassList[1].ClassLoc}}</td>
-                                        <td class={{am9ClassList[2].color}} data-tooltip={{am9ClassList[2].dtooltip}}>{{am9ClassList[2].ClassID}}
-                                            <br>{{am9ClassList[2].ClassLoc}}</td>
-                                        <td class={{am9ClassList[3].color}} data-tooltip={{am9ClassList[3].dtooltip}}>{{am9ClassList[3].ClassID}}
-                                            <br>{{am9ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{am9ClassList[4].color}} data-tooltip={{am9ClassList[4].dtooltip}}>{{am9ClassList[4].ClassID}}
-                                            <br>{{am9ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in am9ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td class={{classList[2].color}} data-tooltip={{classList[2].dtooltip}}>{{classList[2].ClassID}}
+                                        <td class={{classList[2].color}} data-tooltip={{classList[2].tooltip}}>{{classList[2].ClassID}} {{classList[2].grade}}
                                             <br>{{classList[2].ClassLoc}}</td>
                                         <td class='time'>10:00 AM</td>
-                                        <td class={{am10ClassList[0].color}} data-tooltip={{am10ClassList[0].dtooltip}}>{{am10ClassList[0].ClassID}}
-                                            <br>{{am10ClassList[0].ClassLoc}}</td>
-                                        <td class={{am10ClassList[1].color}} data-tooltip={{am10ClassList[1].dtooltip}}>{{am10ClassList[1].ClassID}}
-                                            <br>{{am10ClassList[1].ClassLoc}}</td>
-                                        <td class={{am10ClassList[2].color}} data-tooltip={{am10ClassList[2].dtooltip}}>{{am10ClassList[2].ClassID}}
-                                            <br>{{am10ClassList[2].ClassLoc}}</td>
-                                        <td class={{am10ClassList[3].color}} data-tooltip={{am10ClassList[3].dtooltip}}>{{am10ClassList[3].ClassID}}
-                                            <br>{{am10ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{am10ClassList[4].color}} data-tooltip={{am10ClassList[4].dtooltip}}>{{am10ClassList[4].ClassID}}
-                                            <br>{{am10ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in am10ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td class={{classList[3].color}} data-tooltip={{classList[3].dtooltip}}>{{classList[3].ClassID}}
+                                        <td class={{classList[3].color}} data-tooltip={{classList[3].tooltip}}>{{classList[3].ClassID}} {{classList[3].grade}}
                                             <br>{{classList[3].ClassLoc}}</td>
                                         <td class='time'>11:00 AM</td>
-                                        <td class={{am11ClassList[0].color}} data-tooltip={{am11ClassList[0].dtooltip}}>{{am11ClassList[0].ClassID}}
-                                            <br>{{am11ClassList[0].ClassLoc}}</td>
-                                        <td class={{am11ClassList[1].color}} data-tooltip={{am11ClassList[1].dtooltip}}>{{am11ClassList[1].ClassID}}
-                                            <br>{{am11ClassList[1].ClassLoc}}</td>
-                                        <td class={{am11ClassList[2].color}} data-tooltip={{am11ClassList[2].dtooltip}}>{{am11ClassList[2].ClassID}}
-                                            <br>{{am11ClassList[2].ClassLoc}}</td>
-                                        <td class={{am11ClassList[3].color}} data-tooltip={{am11ClassList[3].dtooltip}}>{{am11ClassList[3].ClassID}}
-                                            <br>{{am11ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{am11ClassList[4].color}} data-tooltip={{am11ClassList[4].dtooltip}}>{{am11ClassList[4].ClassID}}
-                                            <br>{{am11ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in am11ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td class={{classList[4].color}} data-tooltip={{classList[4].dtooltip}}>{{classList[4].ClassID}}
+                                        <td class={{classList[4].color}} data-tooltip={{classList[4].tooltip}}>{{classList[4].ClassID}} {{classList[4].grade}}
                                             <br>{{classList[4].ClassLoc}}</td>
                                         <td class='time'>12:00 PM</td>
-                                        <td class={{pm12ClassList[0].color}} data-tooltip={{pm12ClassList[0].dtooltip}}>{{pm12ClassList[0].ClassID}}
-                                            <br>{{pm12ClassList[0].ClassLoc}}</td>
-                                        <td class={{pm12ClassList[1].color}} data-tooltip={{pm12ClassList[1].dtooltip}}>{{pm12ClassList[1].ClassID}}
-                                            <br>{{pm12ClassList[1].ClassLoc}}</td>
-                                        <td class={{pm12ClassList[2].color}} data-tooltip={{pm12ClassList[2].dtooltip}}>{{pm12ClassList[2].ClassID}}
-                                            <br>{{pm12ClassList[2].ClassLoc}}</td>
-                                        <td class={{pm12ClassList[3].color}} data-tooltip={{pm12ClassList[3].dtooltip}}>{{pm12ClassList[3].ClassID}}
-                                            <br>{{pm12ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{pm12ClassList[4].color}} data-tooltip={{pm12ClassList[4].dtooltip}}>{{pm12ClassList[4].ClassID}}
-                                            <br>{{pm12ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in pm12ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td class={{classList[5].color}} data-tooltip={{classList[5].dtooltip}}>{{classList[5].ClassID}}
+                                        <td class={{classList[5].color}} data-tooltip={{classList[5].tooltip}}>{{classList[5].ClassID}} {{classList[5].grade}}
                                             <br>{{classList[5].ClassLoc}}</td>
                                         <td class='time'>1:00 PM</td>
-                                        <td class={{pm1ClassList[0].color}} data-tooltip={{pm1ClassList[0].dtooltip}}>{{pm1ClassList[0].ClassID}}
-                                            <br>{{pm1ClassList[0].ClassLoc}}</td>
-                                        <td class={{pm1ClassList[1].color}} data-tooltip={{pm1ClassList[1].dtooltip}}>{{pm1ClassList[1].ClassID}}
-                                            <br>{{pm1ClassList[1].ClassLoc}}</td>
-                                        <td class={{pm1ClassList[2].color}} data-tooltip={{pm1ClassList[2].dtooltip}}>{{pm1ClassList[2].ClassID}}
-                                            <br>{{pm1ClassList[2].ClassLoc}}</td>
-                                        <td class={{pm1ClassList[3].color}} data-tooltip={{pm1ClassList[3].dtooltip}}>{{pm1ClassList[3].ClassID}}
-                                            <br>{{pm1ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{pm1ClassList[4].color}} data-tooltip={{pm1ClassList[4].dtooltip}}>{{pm1ClassList[4].ClassID}}
-                                            <br>{{pm1ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in pm1ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td class={{classList[6].color}} data-tooltip={{classList[6].tooltip}}>{{classList[6].ClassID}} {{classList[6].grade}}
+                                            <br>{{classList[6].ClassLoc}}</td>
                                         <td class='time'>2:00 PM</td>
-                                        <td class={{pm2ClassList[0].color}} data-tooltip={{pm2ClassList[0].dtooltip}}>{{pm2ClassList[0].ClassID}}
-                                            <br>{{pm2ClassList[0].ClassLoc}}</td>
-                                        <td class={{pm2ClassList[1].color}} data-tooltip={{pm2ClassList[1].dtooltip}}>{{pm2ClassList[1].ClassID}}
-                                            <br>{{pm2ClassList[1].ClassLoc}}</td>
-                                        <td class={{pm2ClassList[2].color}} data-tooltip={{pm2ClassList[2].dtooltip}}>{{pm2ClassList[2].ClassID}}
-                                            <br>{{pm2ClassList[2].ClassLoc}}</td>
-                                        <td class={{pm2ClassList[3].color}} data-tooltip={{pm2ClassList[3].dtooltip}}>{{pm2ClassList[3].ClassID}}
-                                            <br>{{pm2ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{pm2ClassList[4].color}} data-tooltip={{pm2ClassList[4].dtooltip}}>{{pm2ClassList[4].ClassID}}
-                                            <br>{{pm2ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in pm2ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td class={{classList[7].color}} data-tooltip={{classList[7].tooltip}}>{{classList[7].ClassID}} {{classList[7].grade}}
+                                            <br>{{classList[7].ClassLoc}}</td>
                                         <td class='time'>3:00 PM</td>
-                                        <td class={{pm3ClassList[0].color}} data-tooltip={{pm3ClassList[0].dtooltip}}>{{pm3ClassList[0].ClassID}}
-                                            <br>{{pm3ClassList[0].ClassLoc}}</td>
-                                        <td class={{pm3ClassList[1].color}} data-tooltip={{pm3ClassList[1].dtooltip}}>{{pm3ClassList[1].ClassID}}
-                                            <br>{{pm3ClassList[1].ClassLoc}}</td>
-                                        <td class={{pm3ClassList[2].color}} data-tooltip={{pm3ClassList[2].dtooltip}}>{{pm3ClassList[2].ClassID}}
-                                            <br>{{pm3ClassList[2].ClassLoc}}</td>
-                                        <td class={{pm3ClassList[3].color}} data-tooltip={{pm3ClassList[3].dtooltip}}>{{pm3ClassList[3].ClassID}}
-                                            <br>{{pm3ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{pm3ClassList[4].color}} data-tooltip={{pm3ClassList[4].dtooltip}}>{{pm3ClassList[4].ClassID}}
-                                            <br>{{pm3ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in pm3ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td class={{classList[8].color}} data-tooltip={{classList[8].tooltip}}>{{classList[8].ClassID}} {{classList[8].grade}}
+                                            <br>{{classList[8].ClassLoc}}</td>
                                         <td class='time'>4:00 PM</td>
-                                        <td class={{pm4ClassList[0].color}} data-tooltip={{pm4ClassList[0].dtooltip}}>{{pm4ClassList[0].ClassID}}
-                                            <br>{{pm4ClassList[0].ClassLoc}}</td>
-                                        <td class={{pm4ClassList[1].color}} data-tooltip={{pm4ClassList[1].dtooltip}}>{{pm4ClassList[1].ClassID}}
-                                            <br>{{pm4ClassList[1].ClassLoc}}</td>
-                                        <td class={{pm4ClassList[2].color}} data-tooltip={{pm4ClassList[2].dtooltip}}>{{pm4ClassList[2].ClassID}}
-                                            <br>{{pm4ClassList[2].ClassLoc}}</td>
-                                        <td class={{pm4ClassList[3].color}} data-tooltip={{pm4ClassList[3].dtooltip}}>{{pm4ClassList[3].ClassID}}
-                                            <br>{{pm4ClassList[3].ClassLoc}}
-                                        </td>
-                                        <td class={{pm4ClassList[4].color}} data-tooltip={{pm4ClassList[4].dtooltip}}>{{pm4ClassList[4].ClassID}}
-                                            <br>{{pm4ClassList[4].ClassLoc}}</td>
+                                        <td ng-repeat="x in pm4ClassList track by $index" class={{x.color}} data-tooltip={{x.tooltip}}>{{x.ClassID}}<br>{{x.ClassLoc}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -237,15 +154,7 @@
     <footer id="foot">
         <p>Copyright &copy; Team 1</p>
     </footer>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
-<script src="angclass.js">
-</script>
 </body>
 
 </html>
